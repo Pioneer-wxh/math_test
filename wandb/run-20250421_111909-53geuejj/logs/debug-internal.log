@@ -1,0 +1,15 @@
+{"time":"2025-04-21T11:19:09.132149967+08:00","level":"INFO","msg":"stream: starting","core version":"0.19.7","symlink path":"/root/autodl-tmp/SORSA/wandb/run-20250421_111909-53geuejj/logs/debug-core.log"}
+{"time":"2025-04-21T11:19:09.239150767+08:00","level":"INFO","msg":"created new stream","id":"53geuejj"}
+{"time":"2025-04-21T11:19:09.239177708+08:00","level":"INFO","msg":"stream: started","id":"53geuejj"}
+{"time":"2025-04-21T11:19:09.239191944+08:00","level":"INFO","msg":"writer: Do: started","stream_id":"53geuejj"}
+{"time":"2025-04-21T11:19:09.239201088+08:00","level":"INFO","msg":"handler: started","stream_id":"53geuejj"}
+{"time":"2025-04-21T11:19:09.239219539+08:00","level":"INFO","msg":"sender: started","stream_id":"53geuejj"}
+{"time":"2025-04-21T11:19:09.697658417+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-04-21T11:19:38.917338799+08:00","level":"INFO","msg":"stream: closing","id":"53geuejj"}
+{"time":"2025-04-21T11:19:38.917363814+08:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-04-21T11:19:38.91776946+08:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-04-21T11:19:40.296181208+08:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-04-21T11:19:40.942280777+08:00","level":"INFO","msg":"handler: closed","stream_id":"53geuejj"}
+{"time":"2025-04-21T11:19:40.942313954+08:00","level":"INFO","msg":"sender: closed","stream_id":"53geuejj"}
+{"time":"2025-04-21T11:19:40.942298401+08:00","level":"INFO","msg":"writer: Close: closed","stream_id":"53geuejj"}
+{"time":"2025-04-21T11:19:40.942367329+08:00","level":"INFO","msg":"stream: closed","id":"53geuejj"}

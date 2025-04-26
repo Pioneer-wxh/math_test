@@ -1,39 +1,39 @@
 #  ------------------------------------------------------------------------------------------
-#  SORSA: Singular Values and Orthonormal Regularized Singular Vectors Adaptation of Large Language Models
+#  FOSSV: Singular Values and Orthonormal Regularized Singular Vectors Adaptation of Large Language Models
 #  arXiv: https://arxiv.org/abs/2409.00055
 #  Copyright (c) 2024 Yang Cao
 #  Licensed under the Apache License, Version 2.0.
 #  ------------------------------------------------------------------------------------------
 
 """
-SORSA model intergrated with Hugging Face transformers.
+FOSSV model intergrated with Hugging Face transformers.
 """
 import torch
 import torch.nn as nn
 from typing import List, Optional
 from transformers import PreTrainedModel, AutoModelForCausalLM#这是含有model head（下游任务为因果的）的模型处理文件
 
-from .layer import Linear as SORSALinear# 从自定义layer模块导入SORSALinear
-from .config import SORSAConfig # 从自定义config模块导入SORSAConfig
+from .layer import Linear as FOSSVLinear# 从自定义layer模块导入FOSSVLinear
+from .config import FOSSVConfig # 从自定义config模块导入FOSSVConfig
 
 
-class SORSAModel(PreTrainedModel):#这个类最终形成了一个新的使用了SORSA的模型
+class FOSSVModel(PreTrainedModel):#这个类最终形成了一个新的使用了FOSSV的模型
     """
-    A wrapper model that applies SORSA to huggingface PreTrainedModel.
-    一个使用了sorsa的PreTrainedModel形成的包装模型
+    A wrapper model that applies FOSSV to huggingface PreTrainedModel.
+    一个使用了fossv的PreTrainedModel形成的包装模型
     Attributes:
-        config (SORSAConfig): Configuration instance for this model.包括SORSA的config参数
+        config (FOSSVConfig): Configuration instance for this model.包括FOSSV的config参数
         model (PreTrainedModel): The wrapped PreTrainedModel.要包装的模型
     """
 
-    config_class = SORSAConfig
+    config_class = FOSSVConfig
 
     def __init__(self, config):
         """
-        Initialize the SORSAModel.
+        Initialize the FOSSVModel.
 
         Args:
-            config (SORSAConfig): Configuration for the SORSA model.
+            config (FOSSVConfig): Configuration for the FOSSV model.
         """
         super().__init__(config)
         self.config = config
@@ -103,7 +103,7 @@ class SORSAModel(PreTrainedModel):#这个类最终形成了一个新的使用了
 
     def _replace_modules(self):
         """
-        Replace linear layers in target_modules with SORSA enabled Linear.将目标模块的线性层替换为SORSA启用的线性层。
+        Replace linear layers in target_modules with FOSSV enabled Linear.将目标模块的线性层替换为FOSSV启用的线性层。
         """
         if isinstance(self.config.target_modules, list):#检查我们输入的想要改变的模块是否是一个list
             target_module_names = self.config.target_modules
@@ -115,65 +115,66 @@ class SORSAModel(PreTrainedModel):#这个类最终形成了一个新的使用了
             if any(t in name for t in target_module_names) and isinstance(
                 module, nn.Linear
             ):# 如果模块名称符合target是我们想要改变的且是线性层
-                sorsa_module = SORSALinear(
+                fossv_module = FOSSVLinear(
                     in_features=module.in_features,
                     out_features=module.out_features,
                     r=self.config.rank,
                     alpha=self.config.alpha,
                     bias=module.bias is not None,
                     dropout=self.config.dropout,
-                )#输入参数创建模块，创建一个SORSALinear对象即使使用sorsa的线性层
-                sorsa_module.weight.data = module.weight.data # 将权重数据复制
-                if sorsa_module.bias is not None:
-                    sorsa_module.bias.data = module.bias.data# 将偏置数据复制
-                self._set_submodule(f"{name}", sorsa_module)# 替换模块，使用新的模块替换旧的模块
+                    mod=self.config.mod,
+                )#输入参数创建模块，创建一个FOSSVLinear对象即使使用fossv的线性层
+                fossv_module.weight.data = module.weight.data # 将权重数据复制
+                if fossv_module.bias is not None:
+                    fossv_module.bias.data = module.bias.data# 将偏置数据复制
+                self._set_submodule(f"{name}", fossv_module)# 替换模块，使用新的模块替换旧的模块
 
-    def sorsa_init(
+    def fossv_init(
         self,
         weight_dtype: Optional[torch.dtype] = None,
         adapter_dtype: Optional[torch.dtype] = None,
     ):
         """
-        Initialize SORSA adapters for all SORSA enabled Linear layers in the model.
+        Initialize FOSSV adapters for all FOSSV enabled Linear layers in the model.
 
         Args:
             weight_dtype (Optional[torch.dtype]): Data type for the weight matrix.
-            adapter_dtype (Optional[torch.dtype]): Data type for the SORSA matrices.
+            adapter_dtype (Optional[torch.dtype]): Data type for the FOSSV matrices.
         """
-        print("Initializing SORSA Adapters...")# 输出初始化信息
+        print("Initializing FOSSV Adapters...")# 输出初始化信息
         for module in self.modules():# 遍历所有模块
-            if isinstance(module, SORSALinear): # 如果模块是SORSALinear类型
-                module.sorsa_init(weight_dtype, adapter_dtype)# 初始化SORSA适配器
+            if isinstance(module, FOSSVLinear): # 如果模块是FOSSVLinear类型
+                module.fossv_init(weight_dtype, adapter_dtype)# 初始化FOSSV适配器
 
     def merge(self, mode=True):
         """
-        Merge or unmerge all SORSA adapters in the model.
+        Merge or unmerge all FOSSV adapters in the model.
 
         Args:
             mode (bool): If True, merge the weights. If False, unmerge the weights.  mode是一个bool变量，表示是否要合并权重。
         """
         for module in self.modules():
-            if isinstance(module, SORSALinear):
+            if isinstance(module, FOSSVLinear):
                 module._merge(mode)
 
     def get_parameters(self) -> List[nn.Parameter]:
         """
-        Get all SORSA adapters in the model.
+        Get all FOSSV adapters in the model.
 
         Returns:
-            List[nn.Parameter]: List of all parameters with 'sorsa_' in their name.
+            List[nn.Parameter]: List of all parameters with 'fossv_' in their name.
         """
-        return [p for n, p in self.named_parameters() if "sorsa_" in n] # 获取所有带有"sorsa_"的参数
+        return [p for n, p in self.named_parameters() if "fossv_" in n] # 获取所有带有"fossv_"的参数
 
     def set_trainable(self, mode=True):
         """
-        Set the trainable state of all SORSA adapters.
+        Set the trainable state of all FOSSV adapters.
 
         Args:
-            mode (bool): If True, make SORSA adapters trainable. If False, freeze them.
+            mode (bool): If True, make FOSSV adapters trainable. If False, freeze them.
         """
         for name, param in self.named_parameters():# 遍历所有参数
-            if "sorsa_" in name: # 如果参数名称中包含"sorsa_"
+            if "fossv_" in name: # 如果参数名称中包含"fossv_"
                 param.requires_grad = mode# 设置可训练状态
             else:
                 param.requires_grad = False# 设置不可训练状态

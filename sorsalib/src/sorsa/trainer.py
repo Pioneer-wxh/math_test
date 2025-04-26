@@ -2653,12 +2653,12 @@ class Trainer:
                         else:
                             grad_norm = _grad_norm
 
-                    # SORSA maintain orthonormality
-                    with self.compute_loss_context_manager():
-                        ortho_loss = calc_ortho(model)
-                        if ortho_loss is not None:
-                            s_gamma = self.args.gamma / self.args.learning_rate
-                            self.accelerator.backward(s_gamma * ortho_loss)
+                    # SORSA maintain orthonormality修改
+                    # with self.compute_loss_context_manager():
+                    #     ortho_loss = calc_ortho(model)
+                    #     if ortho_loss is not None:
+                    #         s_gamma = self.args.gamma / self.args.learning_rate
+                    #         self.accelerator.backward(s_gamma * ortho_loss)
 
                     # Optimizer step
                     self.optimizer.step()
@@ -2682,7 +2682,7 @@ class Trainer:
 
                     self._maybe_log_save_evaluate(
                         tr_loss,
-                        ortho_loss,
+                        #ortho_loss,修改
                         grad_norm,
                         model,
                         trial,
@@ -2714,7 +2714,7 @@ class Trainer:
             )
             self._maybe_log_save_evaluate(
                 tr_loss,
-                ortho_loss,
+                #ortho_loss,修改
                 grad_norm,
                 model,
                 trial,
@@ -3204,8 +3204,8 @@ class Trainer:
             )
 
     def _maybe_log_save_evaluate(
-        self, tr_loss, ortho_loss, grad_norm, model, trial, epoch, ignore_keys_for_eval
-    ):
+        self, tr_loss, grad_norm, model, trial, epoch, ignore_keys_for_eval
+    ):#修改：在上面列表中删除了ortho_loss,
         if (
             self.control.should_log
             and self.state.global_step > self._globalstep_last_logged
@@ -3226,10 +3226,11 @@ class Trainer:
                 / (self.state.global_step - self._globalstep_last_logged),
                 4,
             )
-            if ortho_loss is not None:
-                logs["orthonormality"] = ortho_loss.item()
-            else:
-                logs["orthonormality"] = 0
+            #修改
+            # if ortho_loss is not None:
+            #     logs["orthonormality"] = ortho_loss.item()
+            # else:
+            #     logs["orthonormality"] = 0
             if grad_norm is not None:
                 logs["grad_norm"] = (
                     grad_norm.detach().item()

@@ -1,8 +1,8 @@
-python3 run.py --name llama2_sorsa_r128 \
+python3 run.py --name llama2_loradash_r128 \
   --model meta-llama/Llama-2-7b-hf \
-  -p sorsa \
+  -p loradash \
   --train \
-  --lr 3e-5 \
+  --lr 2e-5 \
   --wd 0.00 \
   --batch-size 2 \
   --accum-step 64 \
@@ -11,7 +11,4 @@ python3 run.py --name llama2_sorsa_r128 \
   --mix-precision bf16 \
   --mix-precision tf32 \
   --train-dataset metamath \
-  --split [:100000] \
-
-#--gamma 4e-4 \
-
+  --split [:100000]

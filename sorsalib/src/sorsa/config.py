@@ -1,13 +1,4 @@
-#  ------------------------------------------------------------------------------------------
-#  SORSA: Singular Values and Orthonormal Regularized Singular Vectors Adaptation of Large Language Models
-#  arXiv: https://arxiv.org/abs/2409.00055
-#  Copyright (c) 2024 Yang Cao
-#  Licensed under the Apache License, Version 2.0.
-#  ------------------------------------------------------------------------------------------
 
-"""
-SORSA configuration for SORSAModel and TrainingArguments for SORSATrainer.
-"""
 from typing import List, Optional
 from dataclasses import dataclass, field
 from transformers import PretrainedConfig, TrainingArguments
@@ -32,7 +23,7 @@ class SORSAConfig(PretrainedConfig):
     def __init__(
         self,
         base_model_name_or_path: Optional[str] = None,
-        rank: int = 4,
+        rank: int = 16,
         alpha: Optional[float] = None,
         dropout: float = 0.0,
         target_modules: List[str] = ["query", "key", "value"],
@@ -49,7 +40,7 @@ class SORSAConfig(PretrainedConfig):
 @dataclass
 class SORSATrainingArguments(TrainingArguments):
     """
-    TrainingArguments for SORSATrainer.
+    TrainingArguments for SORSATrainer.对于使用sorsa的模型的训练参数
 
     Attributes:
         gamma (float): SORSA's gamma hyperparameter.
@@ -57,6 +48,6 @@ class SORSATrainingArguments(TrainingArguments):
 
     gamma: float = field(default=0.0, metadata={"help": "SORSA's gamma hyperparameter"})
 
-    def __post_init__(self):
-        super().__post_init__()
-        self.remove_unused_columns = False
+    def __post_init__(self):# 这个方法是 dataclass 的初始化方法的一部分，它会在对象初始化后调用。
+        super().__post_init__() # 调用父类（TrainingArguments）的 `__post_init__` 方法，确保父类中的初始化逻辑被执行。
+        self.remove_unused_columns = False# 设置 `remove_unused_columns` 为 False，通常这个参数与是否移除未使用的列相关

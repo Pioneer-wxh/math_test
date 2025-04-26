@@ -1,0 +1,3 @@
+1.sorsalib中的trainer修改，去掉了orthloss
+2.run中的SORSATrainer修改，gamma修改
+3.train.sh中修改了gamma

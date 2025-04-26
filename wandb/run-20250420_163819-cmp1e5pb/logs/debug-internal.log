@@ -1,0 +1,15 @@
+{"time":"2025-04-20T16:38:19.378708383+08:00","level":"INFO","msg":"stream: starting","core version":"0.19.7","symlink path":"/root/autodl-tmp/SORSA/wandb/run-20250420_163819-cmp1e5pb/logs/debug-core.log"}
+{"time":"2025-04-20T16:38:19.484941665+08:00","level":"INFO","msg":"created new stream","id":"cmp1e5pb"}
+{"time":"2025-04-20T16:38:19.484968253+08:00","level":"INFO","msg":"stream: started","id":"cmp1e5pb"}
+{"time":"2025-04-20T16:38:19.484984291+08:00","level":"INFO","msg":"writer: Do: started","stream_id":"cmp1e5pb"}
+{"time":"2025-04-20T16:38:19.484990799+08:00","level":"INFO","msg":"handler: started","stream_id":"cmp1e5pb"}
+{"time":"2025-04-20T16:38:19.485012497+08:00","level":"INFO","msg":"sender: started","stream_id":"cmp1e5pb"}
+{"time":"2025-04-20T16:38:20.033742589+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-04-20T16:38:49.688478254+08:00","level":"INFO","msg":"stream: closing","id":"cmp1e5pb"}
+{"time":"2025-04-20T16:38:49.688511334+08:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-04-20T16:38:49.688960001+08:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-04-20T16:38:50.828982538+08:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-04-20T16:38:51.617086495+08:00","level":"INFO","msg":"handler: closed","stream_id":"cmp1e5pb"}
+{"time":"2025-04-20T16:38:51.617118598+08:00","level":"INFO","msg":"writer: Close: closed","stream_id":"cmp1e5pb"}
+{"time":"2025-04-20T16:38:51.617157075+08:00","level":"INFO","msg":"sender: closed","stream_id":"cmp1e5pb"}
+{"time":"2025-04-20T16:38:51.617183918+08:00","level":"INFO","msg":"stream: closed","id":"cmp1e5pb"}

@@ -1,0 +1,15 @@
+{"time":"2025-04-21T11:38:35.906721733+08:00","level":"INFO","msg":"stream: starting","core version":"0.19.7","symlink path":"/root/autodl-tmp/SORSA/wandb/run-20250421_113835-dapvlsl6/logs/debug-core.log"}
+{"time":"2025-04-21T11:38:36.013200485+08:00","level":"INFO","msg":"created new stream","id":"dapvlsl6"}
+{"time":"2025-04-21T11:38:36.013225386+08:00","level":"INFO","msg":"stream: started","id":"dapvlsl6"}
+{"time":"2025-04-21T11:38:36.013235594+08:00","level":"INFO","msg":"writer: Do: started","stream_id":"dapvlsl6"}
+{"time":"2025-04-21T11:38:36.013250209+08:00","level":"INFO","msg":"handler: started","stream_id":"dapvlsl6"}
+{"time":"2025-04-21T11:38:36.013256288+08:00","level":"INFO","msg":"sender: started","stream_id":"dapvlsl6"}
+{"time":"2025-04-21T11:38:36.500705517+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-04-21T11:39:00.688885381+08:00","level":"INFO","msg":"stream: closing","id":"dapvlsl6"}
+{"time":"2025-04-21T11:39:00.688914756+08:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-04-21T11:39:00.689299619+08:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-04-21T11:39:01.872995064+08:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-04-21T11:39:02.383870217+08:00","level":"INFO","msg":"handler: closed","stream_id":"dapvlsl6"}
+{"time":"2025-04-21T11:39:02.383904544+08:00","level":"INFO","msg":"writer: Close: closed","stream_id":"dapvlsl6"}
+{"time":"2025-04-21T11:39:02.383944366+08:00","level":"INFO","msg":"sender: closed","stream_id":"dapvlsl6"}
+{"time":"2025-04-21T11:39:02.383960036+08:00","level":"INFO","msg":"stream: closed","id":"dapvlsl6"}

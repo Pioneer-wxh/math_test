@@ -86,6 +86,33 @@ class Linear(nn.Module, LoRALayer):
             merge = self.lora_B @ self.lora_A
             self.weight.data = (self.weight - merge * self.scale).to(weight_dtype)
 
+    def milora_init(#新增修改
+        self, weight_dtype: Optional[torch.dtype], adapter_dtype: Optional[torch.dtype]#指定适配器的参数类型
+    ):
+        if weight_dtype is None:
+            weight_dtype = self.weight.dtype
+        if adapter_dtype is None:
+            adapter_dtype = weight_dtype
+        if hasattr(self, "lora_A"):#检查一下模型结构中是否存在属性lora_A
+            self.merged = False#merge属性标志是否完成了适配器参数的合并，因为下面我们要将适配器从权重矩阵中分离出来，所以最后的状态就是没有合并，设置为False
+            #self.weight.to(torch.float32)  # Convert to float32 for SVD，因为只有float32参数类型才能svd分解
+            weight_fp32 = self.weight.to(torch.float32)  # 创建临时float32副本
+            u, s, vt = torch.linalg.svd(weight_fp32.T, full_matrices=False)
+            s_r = s[-self.r:]  # Store s_small on the correct device
+
+            self.lora_A.data = (
+                (u[:, -self.r:]  @ torch.diag(s_r**0.5)).T.contiguous().to(adapter_dtype)
+            )
+            self.lora_B.data = (
+                (torch.diag(s_r**0.5) @ vt[-self.r:, :])
+                .T.contiguous()
+                .to(adapter_dtype)
+            )
+            merge = self.lora_B @ self.lora_A
+            self.weight.data = (self.weight - merge * self.scale).to(weight_dtype)
+
+
+
     def lora_init(
         self, weight_dtype: Optional[torch.dtype], adapter_dtype: Optional[torch.dtype]
     ):

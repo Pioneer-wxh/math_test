@@ -68,16 +68,19 @@ class LoRAModel(PreTrainedModel):
     def lora_init(
         self,
         pissa=False,
+        milora=False,#新增修改
         weight_dtype: Optional[torch.dtype] = None,
         adapter_dtype: Optional[torch.dtype] = None,
     ):
         print("Initializing LoRA Adapters...")
         for module in self.modules():
-            if isinstance(module, LoRALinear):
-                if not pissa:
-                    module.lora_init(weight_dtype, adapter_dtype)
-                else:
+            if isinstance(module, LoRALinear):#新增修改
+                if milora:
+                    module.milora_init(weight_dtype, adapter_dtype)
+                elif pissa:
                     module.pissa_init(weight_dtype, adapter_dtype)
+                else:
+                    module.lora_init(weight_dtype, adapter_dtype)
 
     def merge(self, mode=True):
         for module in self.modules():

@@ -12,6 +12,7 @@ from tqdm import tqdm
 
 
 def test_gsm(model, tokenizer, precision):
+    import numpy as np  # 添加这一行
     from vllm import LLM, SamplingParams
 
     correct = 0
@@ -51,6 +52,7 @@ def extract_ans_for_math(completion):
 
 
 def test_math(model, tokenizer, precision):
+    import numpy as np  # 添加这一行
     from vllm import LLM, SamplingParams
 
     correct = 0
@@ -156,6 +158,7 @@ def test_math_rwkv(model, precision):
 def test_human_eval(model, tokenizer, precision):
     from human_eval.data import read_problems
     from human_eval.evaluation import evaluate_functional_correctness
+    import numpy as np  # 添加这一行
     from vllm import LLM, SamplingParams
     import re
     import json

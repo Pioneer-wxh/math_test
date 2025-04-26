@@ -1,0 +1,73 @@
+{
+  "os":  "Linux-4.19.90-2107.6.0.0192.8.oe1.bclinux.x86_64-x86_64-with-glibc2.35",
+  "python":  "CPython 3.11.9",
+  "startedAt":  "2025-04-20T08:38:19.377657Z",
+  "args":  [
+    "--name",
+    "llama2_fossv_r128",
+    "--model",
+    "meta-llama/Llama-2-7b-hf",
+    "-p",
+    "fossv",
+    "--train",
+    "--lr",
+    "3e-5",
+    "--wd",
+    "0.00",
+    "--batch-size",
+    "2",
+    "--accum-step",
+    "64",
+    "--rank",
+    "128",
+    "--epochs",
+    "1",
+    "--mix-precision",
+    "bf16",
+    "--mix-precision",
+    "tf32",
+    "--train-dataset",
+    "metamath",
+    "--mod",
+    "small",
+    "--split",
+    "[:1000]"
+  ],
+  "program":  "/root/autodl-tmp/SORSA/run.py",
+  "codePath":  "run.py",
+  "git":  {
+    "remote":  "https://github.com/Gunale0926/SORSA.git",
+    "commit":  "809cca04fca475be232fc2ec414d185859ca88df"
+  },
+  "email":  "2274246074@qq.com",
+  "root":  "/root/autodl-tmp/SORSA",
+  "host":  "autodl-container-27b944a7b2-b99803b3",
+  "executable":  "/root/autodl-tmp/miniconda3/envs/SORSA/bin/python3",
+  "codePathLocal":  "run.py",
+  "cpu_count":  56,
+  "cpu_count_logical":  112,
+  "gpu":  "NVIDIA A800 80GB PCIe",
+  "gpu_count":  1,
+  "disk":  {
+    "/":  {
+      "total":  "32212254720",
+      "used":  "11331289088"
+    }
+  },
+  "memory":  {
+    "total":  "1081304473600"
+  },
+  "cpu":  {
+    "count":  56,
+    "countLogical":  112
+  },
+  "gpu_nvidia":  [
+    {
+      "name":  "NVIDIA A800 80GB PCIe",
+      "memoryTotal":  "85899345920",
+      "cudaCores":  6912,
+      "architecture":  "Ampere"
+    }
+  ],
+  "cudaVersion":  "12.4"
+}
