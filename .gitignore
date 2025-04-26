@@ -1,9 +1,10 @@
 .DS_Store
 .Spotlight-V100
 .Trashes
-__pycache__/
+cache/
+wandb/
+svd_cache/
 .env
 runs/
-svd_cache/
 MetaMathQA-395K.json
 .ipynb_checkpoints/
